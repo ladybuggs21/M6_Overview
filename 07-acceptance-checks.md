@@ -1,0 +1,12 @@
+# 07 Acceptance Checks
+
+Each of the 7 plain statements below can be verified as strictly **True** or **False** using the system's exact numbers:
+
+1. **Blank Start & 4 Columns:** Before any order is placed, the machine power status reads **Standby — Place an order to start machine** and the 4 columns (**Placed**, **Making**, **Ready**, and **Already Collected**) contain 0 order cards and 0 ticket numbers. (**True / False**)
+2. **Wake-Up & Chronological Queue:** Submitting 1 valid order with a customer name between 1 and 30 characters wakes the machine to **Machine Active — Shop Open** in under 1 second and places the card in Stage 1 (**Placed**) with the customer name, coffee drink, and 5-character `HH:MM` timestamp sorted chronologically from earliest (1st) to latest. (**True / False**)
+3. **Cannot Skip a Step:** Every order advances by exactly 1 stage at a time from Stage 1 (**Placed**) to Stage 2 (**Making**), Stage 3 (**Ready**), and Stage 4 (**Already Collected**), and any attempt to skip 1 or more stages—including scanning a QR code before the order reaches Stage 3 (**Ready**)—is blocked with 0 stage changes. (**True / False**)
+4. **10-Minute Making Delay Alert:** When 1 order remains in Stage 2 (**Making**) for 10 minutes (600 seconds), the system simultaneously displays 1 customer apology banner and 1 red barista reminder badge on that card without stopping the other orders on the board. (**True / False**)
+5. **Automated QR Scan & 2-Second Parcel Drop:** Moving 1 order from Stage 2 (**Making**) to Stage 3 (**Ready**) assigns 1 unique 8-character QR code, and scanning that matching QR code at the pickup station verifies the item, drops 1 parcel in 2 seconds, and moves the card to Stage 4 (**Already Collected**) with a pickup timestamp. (**True / False**)
+6. **Something Going Wrong (Fault & Reset):** When 1 machine fault occurs, the indicator light changes to **Status: Machine Needs Reset**, 100% of automated parcel drops and stage transitions pause, and clicking the 1 **Reset Machine** button clears the fault and resets all 4 columns to 0 orders. (**True / False**)
+7. **Edge Cases (2 People at Once, 30-Minute Unclaimed, and 60-Minute Idle):** Submitting 2 orders within 1 millisecond queues both cards sequentially without loss, leaving 1 order in Stage 3 (**Ready**) for 30 minutes (1800 seconds) triggers 1 pickup reminder without blocking the other 19 board slots, and 60 minutes (3600 seconds) with 0 active orders automatically returns the machine to **Standby — Place an order to start machine**. (**True / False**)
+
